@@ -1,4 +1,12 @@
 {
   "name": "pi-extensions",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@aliou/pi-guardrails": "^0.16.1",
+    "@carter-mcalister/pi-codex-image-gen": "^0.2.0",
+    "pi-ask-user": "^0.13.0",
+    "pi-btw": "^0.4.1",
+    "pi-mcp-adapter": "^2.17.0",
+    "pi-web-access": "^0.17.1"
+  }
 }

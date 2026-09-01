@@ -84,6 +84,7 @@ Use a native TODO as the concise routing card for work that may outlive the turn
 Load `delegation` for all nontrivial work unless delegation is unavailable or prohibited. The Pi Subagents package owns execution and agent discovery; the local skill owns when and how this setup delegates.
 
 - The parent owns task selection, user communication, decisions, integration, and verification. `clone` normally executes bounded coherent tasks; the parent directly reads every file it edits and every completed clone diff.
+- Do not set `timeoutMs` or `maxRuntimeMs` on subagent runs unless the user explicitly requests a hard deadline for that run. Async subagents have no parent-imposed runtime deadline by default; use tool budgets to bound exploration and interrupt only on concrete evidence of blocking or drift.
 - Use native supervisor coordination, not `intercom`.
 - `manager-workflow` owns stage timing. `review` owns review method. `delegation` owns general parent-child boundaries and async handling.
 - Ask when a material choice remains unresolved.
@@ -210,6 +211,11 @@ Load `code-intelligence` when code ownership, structure, behavior, types, relati
 - Skip external documentation only for demonstrably repo-local or purely mechanical work, or when public documentation cannot answer the question. In the latter case, state the source attempted and unresolved uncertainty.
 - Do not rely on memory when current docs or source can verify it.
 - Use `code_search` or `web_search` when examples, ecosystem usage, or current external behavior would materially improve confidence.
+
+## Making PRs
+- Make sure the code is simple, nominal and only adds changes needed
+- We should have launched live tests(include direct, exact descriptions in PR)
+- PR Description should be direct, Include 1 short direct paragraph describing what was changed, then Bullet points of what was changed, and then Testing details exacting direct details of what was changed.
 
 ### Shell and command output
 

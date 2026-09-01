@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Git commit and branch naming conventions only — ok/ branch prefix, terse imperative commit messages. Use when suggesting or reviewing names; do not use to allow or block git operations.
+description: Git commit and branch naming conventions only — ss/ branch prefix, terse imperative commit messages. Use when suggesting or reviewing names; do not use to allow or block git operations.
 ---
 
 # Commit Message Conventions
@@ -28,7 +28,7 @@ Do not use this skill to decide whether Git operations are allowed. For `git add
 
 ## Branch Names
 
-When suggesting branch names, prefer `ok/<short-topic>`.
+When suggesting branch names, prefer `ss/<short-topic>`.
 
 ## What to Present
 

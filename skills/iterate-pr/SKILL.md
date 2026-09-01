@@ -1,11 +1,11 @@
 ---
 name: iterate-pr
-description: Automated PR iteration loop — fix CI failures or review feedback, present changes, let the user push, then monitor and repeat. Use when asked to "iterate on PR", "fix CI", "PR is failing", "address review comments", or continuously iterate on fixes until checks pass.
+description: Automated PR iteration loop — fix CI failures or review feedback, present changes, perform exactly authorized Git updates when requested, then monitor and repeat. Use when asked to "iterate on PR", "fix CI", "PR is failing", "address review comments", or continuously iterate on fixes until checks pass.
 ---
 
 # Iterate PR
 
-Automate the fix -> present -> user pushes -> monitor -> check -> fix cycle for PRs. The agent never pushes.
+Automate the fix -> present -> authorized Git update -> monitor -> check -> fix cycle for PRs. Git mutations require exact user authorization and scope.
 
 ## Workflow
 
@@ -15,13 +15,13 @@ Automate the fix -> present -> user pushes -> monitor -> check -> fix cycle for 
 4. **Verify locally**: run the same safe focused check or nearest local equivalent that CI runs.
 5. **Review**: enter the normal `manager-workflow` review stage for nontrivial fixes; automatically apply only validated local fixes inside the approved behavior while material progress continues.
 6. **Present changes**: show the behavior fixed, effective change, review disposition, and validation evidence to the user.
-7. **User pushes**: user runs the appropriate version-control command; the agent never pushes or mutates git state.
-8. **Monitor after user push**: after the pushed head is visible on the retained PR number, start a new PR evidence identity snapshot before monitoring. Use `gh pr checks <number> --watch --fail-fast` when checks are pending, then re-run `gh pr checks <number> --json name,bucket,state,workflow,link` for the retained PR to inspect the full check set. Apply the `github` identity recheck before reporting PR readiness.
+7. **Authorized Git update**: when the user explicitly authorizes the exact staging paths, commit, and push target, the agent may perform those Git mutations. Otherwise provide the exact command for the user to run.
+8. **Monitor after push**: after the pushed head is visible on the retained PR number, start a new PR evidence identity snapshot before monitoring. Use `gh pr checks <number> --watch --fail-fast` when checks are pending, then re-run `gh pr checks <number> --json name,bucket,state,workflow,link` for the retained PR to inspect the full check set. Apply the `github` identity recheck before reporting PR readiness.
 9. **Repeat** if new failures appear and the next round has a concrete evidence-producing action.
 
 ## Rules
 
-- Never push code — present changes and let the user push.
+- Never stage, commit, or push without explicit user authorization for the exact paths, commit, and target.
 - Use `gh pr checks` rather than GitHub Actions-only commands when judging overall PR readiness; PRs can have non-Actions checks.
 - Fix one category of failure at a time (lint, then tests, then type errors).
 - If a failure is unclear, investigate before fixing.
