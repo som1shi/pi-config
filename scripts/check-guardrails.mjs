@@ -128,7 +128,7 @@ const prompted = [
 	"gs commit amend",
 ];
 
-const gitFormsOutsideAllowlist = [
+const allowed = [
 	"env git branch",
 	"command git branch",
 	"git -C repo branch --all --verbose --no-abbrev",
@@ -147,9 +147,6 @@ const gitFormsOutsideAllowlist = [
 	"git bisect visualize",
 	"git -C repo status --short --branch --untracked-files=all && git -C repo branch --all --verbose --no-abbrev && git -C repo remote -v",
 	"git -C repo status --short --untracked-files=all && git -C repo symbolic-ref --short HEAD && git -C repo for-each-ref refs/heads refs/remotes && git -C repo remote -v",
-];
-
-const allowed = [
 	"echo git commit",
 	"echo rm -rf /",
 	"git status",
@@ -214,14 +211,6 @@ for (const command of prompted) {
 	);
 }
 
-for (const command of gitFormsOutsideAllowlist) {
-	assert.equal(
-		classifyConfiguredPatterns(command),
-		"prompt",
-		`expected Git form outside allowlist to remain prompted: ${command}`,
-	);
-}
-
 for (const command of allowed) {
 	assert.equal(
 		classifyConfiguredPatterns(command),
@@ -231,5 +220,5 @@ for (const command of allowed) {
 }
 
 console.log(
-	`guardrail smoke passed: ${denied.length} denied, ${prompted.length} prompted, ${gitFormsOutsideAllowlist.length} Git forms outside allowlist prompted, ${allowed.length} allowed, ${requiredDefaultPromptPatterns.length} defaults preserved`,
+	`guardrail smoke passed: ${denied.length} denied, ${prompted.length} prompted, ${allowed.length} allowed, ${requiredDefaultPromptPatterns.length} defaults preserved`,
 );

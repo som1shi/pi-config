@@ -86,7 +86,7 @@ Check feasibility before implementation:
 - protected-action triggers, exclusions, and stop conditions are identified;
 - no mutating git instructions are included.
 
-Review the visible draft asynchronously. The parent integrates supported findings and re-presents the complete revised plan before asking implementation approval.
+Review the visible draft asynchronously. The parent integrates supported findings and re-presents the complete revised plan, then returns to `manager-workflow` to apply its authorization rules. Review does not create implementation authority or a second permission checkpoint.
 
 ### 4. Review Feedback Evaluation
 

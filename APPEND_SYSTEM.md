@@ -2,13 +2,11 @@
 
 ## System
 
-- Machine: ThinkPad X1 Carbon Gen 13, x86_64, Arch Linux
-- Wayland: sway; use sway config syntax
-- Clipboard: `wl-copy` / `wl-paste`
-  - To copy an exact command: `printf '%s\n' '<command>' | wl-copy`
+- System: macOS, arm64
+- Clipboard: `pbcopy` / `pbpaste`
+  - To copy an exact command: `printf '%s\n' '<command>' | pbcopy`
 - IDE: Neovim
-- Terminal: Foot
-- Package manager: `pacman` / `yay`
+- Package manager: Homebrew (`brew`)
 
 ## Stack
 

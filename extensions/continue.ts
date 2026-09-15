@@ -12,13 +12,13 @@
  */
 
 // @ts-expect-error Pi runtime resolves SDK imports outside this config repo.
-import type { ExtensionAPI, SessionEntry } from "@earendil-works/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 // @ts-expect-error Pi runtime resolves SDK imports outside this config repo.
 import { complete, type Message } from "@earendil-works/pi-ai/compat";
 // @ts-expect-error Pi runtime resolves SDK imports outside this config repo.
 import { BorderedLoader } from "@earendil-works/pi-coding-agent";
 // @ts-expect-error Pi runtime resolves SDK imports outside this config repo.
-import { convertToLlm } from "@earendil-works/pi-coding-agent";
+import { buildSessionContext, convertToLlm } from "@earendil-works/pi-coding-agent";
 // @ts-expect-error Pi runtime resolves SDK imports outside this config repo.
 import { serializeConversation } from "@earendil-works/pi-coding-agent";
 
@@ -69,13 +69,7 @@ export default function (pi: ExtensionAPI) {
         return;
       }
 
-      const branch = ctx.sessionManager.getBranch();
-      const messages = branch
-        .filter(
-          (entry): entry is SessionEntry & { type: "message" } =>
-            entry.type === "message",
-        )
-        .map((entry) => entry.message);
+      const messages = buildSessionContext(ctx.sessionManager.getBranch()).messages;
 
       if (messages.length === 0) {
         ctx.ui.notify("No conversation to continue from", "error");

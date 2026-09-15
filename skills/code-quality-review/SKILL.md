@@ -11,7 +11,7 @@ This is not a style pass and not a contest to minimize lines. “Simple” means
 
 Use this specialized skill when the user explicitly requests a deep structural/simplification review; that request makes behavior-preserving simplification the primary in-scope target. It may also run opportunistically during ordinary nontrivial work when a concrete useful quality, structure, simplicity, or ownership question warrants a read-only background lane. Opportunistic review is nonblocking, does not require a known defect, stops when no novel useful target remains, and cannot authorize fixes or delay readiness unless the parent validates and accepts a concrete finding into the primary scope.
 
-Use `review` for finding partitions and standards. Route cleanup-only requests and every fix pass through `manager-workflow`; this skill does not own orchestration.
+Standalone deep quality reviews enter `review` for orchestration, finding partitions, and standards, including its initial fanout of at least three fresh parallel reviewers with distinct evidence targets. Manager-attached reviews stay in their existing `manager-workflow` stage. Opportunistic quality lanes remain nonblocking and do not create another review stage. This skill supplies quality methods and lenses, not orchestration. Route cleanup-only requests and every fix pass through `manager-workflow`.
 
 ## Default boundary
 
@@ -127,7 +127,7 @@ Use `module_report`, `read_symbol`, and `read_enclosing` for code structure and 
 
 ### 5. Use independent reviewers without outsourcing judgment
 
-After the parent locks scope, intent, and the behavior-preservation contract, enter the review stage owned by `manager-workflow`. This skill supplies the code-quality evidence targets; it does not own reviewer selection or fanout.
+After the parent locks scope, intent, and the behavior-preservation contract, standalone reviews use `review` directly; manager-attached reviews stay in the existing `manager-workflow` review stage. Use `review` for reviewer selection and fanout and `delegation` for dispatch. This skill supplies the code-quality evidence targets. Opportunistic quality lanes do not trigger a separate stage or mandatory fanout.
 
 Every selected reviewer receives the approved behavior/non-goals, relevant decisions, target/effective change, proof/evidence, assigned angle/evidence target, and stop condition. The parent's direct inspection remains mandatory.
 
@@ -224,7 +224,7 @@ When fixes are explicitly authorized:
    - optional improvements;
    - rejected/deferred feedback;
    - decisions requiring approval.
-3. The parent applies one coherent fix group at a time. Use write children only under the configured exclusive-file policy.
+3. Follow `manager-workflow` for fix-stage execution and `delegation` for parent-child ownership and write boundaries. Apply one coherent fix group at a time through the assigned task owner.
 4. For behavior-preserving refactors, capture focused baseline evidence first; do not invent new behavior tests for purely mechanical cleanup unless existing proof is insufficient.
 5. For behavior changes or bug fixes, use `behavioral-proof` to select proportionate evidence.
 6. After each meaningful fix group, run the narrowest proof that can detect drift, then relevant broader checks.

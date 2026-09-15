@@ -5,7 +5,7 @@ description: Use Context Mode for large command, test, log, API, document, data,
 
 # Context Mode
 
-Use Context Mode when an operation can return more than about 20 lines or when the full input must be processed but only a compact result belongs in the conversation.
+Use Context Mode for genuinely large raw output that would flood the conversation or for substantial extraction or aggregation where the full input must be processed but only a compact result belongs in the conversation. Do not route ordinary discovery or small exact reads through MCP merely because they span more than 20 lines.
 
 Good targets include:
 

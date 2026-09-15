@@ -14,7 +14,7 @@ Produce a code-shaped architecture proposal with concrete contracts and end-to-e
 
 ### Manager-routed architecture work
 
-Use the inspected task context to produce the architecture body of the decision-ready proposal. Return the complete draft to `manager-workflow`; do not ask for implementation approval before its asynchronous plan review.
+Use the inspected task context to produce the architecture body of the decision-ready proposal. Return the complete draft to `manager-workflow`; it owns asynchronous plan review, revised presentation, and any required authorization question.
 
 ### User-requested spec only
 
@@ -139,7 +139,7 @@ Use this outline when the sections are material. Omit sections that truly do not
 ## Risks and Open Questions
 ```
 
-When used by `manager-workflow`, also satisfy that workflow's proposal requirements, including previous/proposed behavior, observable consequences, material assumptions and risks, unchanged behavior, verification/review strategy, behavioral authorization boundary, exclusions, stop conditions, and the next separately authorized action. `manager-workflow` presents the reviewed final proposal and asks the single approval question.
+When used by `manager-workflow`, also satisfy that workflow's proposal requirements, including previous/proposed behavior, observable consequences, material assumptions and risks, unchanged behavior, verification/review strategy, behavioral authorization boundary, exclusions, stop conditions, and any next action requiring separate authorization. `manager-workflow` presents the complete reviewed final proposal and applies its authorization rules. This handoff adds neither an approval wait nor implementation authority.
 
 ## Writing rules
 

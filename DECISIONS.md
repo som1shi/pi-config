@@ -742,3 +742,14 @@ This registry is the permanent repository-local history of material user decisio
 - Refines: CFG-036.
 - Preserves: CFG-066 and CFG-067.
 - Provenance: current session.
+
+### CFG-070 — Native Pi by default; Paseo only by explicit request
+
+- Status: current
+- Force: MUST
+- Scope: delegation routing for requests handled by this Pi configuration
+- Question: Should generic delegation requests use native Pi, with Paseo used only when you explicitly request it?
+- Answer: "Yes—native Pi by default"
+- Option: "Keep Paseo available for explicit Paseo, daemon, or workspace requests."
+- Normalized intent: Generic advisor, second-opinion, handoff, and loop requests use the applicable native Pi workflow. Use Paseo only when explicitly requested or when asked to manage Paseo resources, never as an implicit fallback. This is prompt policy for this Pi configuration, not runtime router enforcement or automatic activation of a special autonomous mode. Keep shared Paseo skills and configuration untouched.
+- Provenance: current user decision supplied in the reviewed implementation task.

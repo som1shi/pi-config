@@ -1,11 +1,13 @@
 ---
 name: brainstorming
-description: "Use before creative or non-trivial implementation work: new features, behavior changes, UI/API design, architecture choices, or ambiguous requirements. Refines intent into an approved design using code/docs inspection and focused user questions."
+description: "Use for unclear intent or a material goal, behavior, placement, or design choice unresolved after inspection. Refines intent through code/docs evidence and focused user questions; clear nontrivial implementation goes directly to manager-workflow."
 ---
 
 # Brainstorming
 
-Turn a rough idea into a concrete design before implementation.
+Resolve unclear intent or a material goal, behavior, placement, or design choice that remains open after inspection. Turn that uncertainty into a concrete design; do not load this skill merely because implementation is creative or nontrivial.
+
+Clear nontrivial implementation goes directly to `manager-workflow`. That workflow or `tech-spec` may still use this skill for unresolved design choices within the current stage, without another interview or approval flow.
 
 This is a discussion and design skill, not an implementation skill.
 
@@ -91,9 +93,7 @@ For larger work, present the design in short sections for inspectability and non
 - proof strategy
 - rollout/cleanup when relevant
 
-The only default normal-mode wait is after the complete draft, asynchronous review, and complete revised design. Any additional milestone wait must be named in the decision-ready proposal and explicitly approved.
-
-For a nontrivial complete design, hand the visible draft to `manager-workflow`; it owns review timing, revised presentation, and the approval question. This skill owns only the design evidence and decision-ready draft. If the user corrects direction, revise the affected design before that handoff.
+For a nontrivial complete design, hand the visible draft to `manager-workflow`; it owns asynchronous review, complete revised presentation, authorization, and approval milestones. This skill owns only the design evidence and decision-ready draft, not an unconditional approval wait. If the user corrects direction, revise the affected design before that handoff.
 
 ### 5. Save a design when useful
 
@@ -103,10 +103,11 @@ Do not edit project docs during brainstorming. The artifact preserves detail but
 
 ## Handoff
 
-After reviewed design approval:
+After the complete reviewed design:
 
+- Return to `manager-workflow` to determine whether existing implementation authorization permits execution or a decision/approval is still needed.
 - Use `writing-plans` only when the user explicitly requested a durable plan or it is materially useful for continuity or execution.
-- Otherwise return to `manager-workflow` execution.
+- Standalone design-only intent remains read-only: return the design without starting implementation.
 - For unresolved material design choices, ask one clear question at a time and recommend an option when useful.
 
 ## Quality Bar
@@ -117,4 +118,4 @@ A brainstorm is not done until:
 - at least one simpler alternative was considered,
 - risks are explicit,
 - the proof strategy is plausible,
-- the next step is either planning or a clearly bounded implementation.
+- the next step is explicit: return the design for design-only intent, or hand off planning/execution under `manager-workflow` authorization rules.

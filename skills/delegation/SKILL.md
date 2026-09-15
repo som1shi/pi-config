@@ -11,6 +11,18 @@ The Pi Subagents package owns dispatch, chains, async execution, supervisor mess
 
 Use subagents for nontrivial work unless delegation is unavailable, prohibited, or a strict no-artifact instruction forbids child-session artifacts. The parent owns user communication, decisions, integration, and final verification.
 
+## Native Pi and Paseo routing
+
+For requests handled by this Pi configuration, use the applicable native Pi workflow by default:
+
+- Generic advisor or second-opinion requests use a matching native specialist and evidence target; use `review` when the request is a review.
+- Generic handoff requests use native task/context handoff through this skill; use `context-builder` when a handoff context deliverable is needed.
+- Generic loop requests follow the applicable native workflow and its existing authorization, stop conditions, and verification rules. The word “loop” does not activate a special autonomous mode or authorize new effects.
+
+Use Paseo only when the user explicitly asks to use Paseo or manage Paseo resources, such as its daemon or workspaces. Generic delegation wording is not a Paseo request. If the needed native capability is unavailable, report the limitation and ask when a decision is needed; never fall back to Paseo implicitly.
+
+This is prompt-routing policy for this Pi configuration, not runtime router enforcement. It does not modify shared Paseo skills or configuration.
+
 ## Workflow routing
 
 Use this flow only to select delegation topology. Follow `manager-workflow` for stages and approval, and `review` for review fanout and method.

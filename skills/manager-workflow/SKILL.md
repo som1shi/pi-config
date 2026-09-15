@@ -7,7 +7,7 @@ description: Owns approval, stage flow, execution boundaries, and progress for n
 
 ## Approval model
 
-Classify the work by behavior and decision risk, not file count.
+Classify the work by behavior and decision risk, not file count. Apply the authorization rules in `AGENTS.md`: a direct implementation request authorizes local in-scope edits and relevant read-only checks, not protected actions. Plan/review/investigation/explanation-only intent remains read-only. Interpret intent naturally, not as a keyword test.
 
 ### Trivial and unambiguous
 
@@ -21,7 +21,7 @@ Before tracked/source/config mutation:
 2. Launch asynchronous plan review while the draft remains inspectable.
 3. Inspect and synthesize the reviewer evidence.
 4. Present the complete revised plan and every material delta.
-5. Ask for implementation approval only on that reviewed plan.
+5. Proceed on existing direct implementation authorization when the reviewed plan stays within its scope. Ask one focused question only for an unresolved material choice, material scope expansion, protected action, or user-requested approval milestone. Without implementation authorization, return the reviewed plan without editing.
 
 The proposal includes:
 
@@ -30,7 +30,7 @@ The proposal includes:
 - why it is the simplest coherent option, meaningful alternatives, and why rejected;
 - every material assumption, uncertainty, risk, tradeoff, reversibility concern, and safer alternative;
 - evidence, failed/unexecuted checks, verification and review strategy, and focus points;
-- the exact behavioral authorization boundary, exclusions, stop conditions, next separately authorized action, and one focused approval question.
+- the exact behavioral authorization boundary, exclusions, stop conditions, and next action; identify any action requiring separate authorization and include one focused question only when a decision or approval is needed.
 
 A saved plan can preserve implementation detail, but the complete proposal must remain in chat.
 
@@ -43,20 +43,20 @@ Before mutation, bind the current request and latest correction to:
 - proof strategy and focused checks;
 - behavioral approval boundary and protected-action stops.
 
-Approval binds behavior, outcome, non-goals, material risks, and stop conditions—not exact files, ranges, or line budgets. Those remain optional implementation or concurrent-writer controls. Implement the smallest coherent solution at the canonical owner. Ask before any material expansion, new behavior/API/dependency/config/security/data decision, compatibility path, unexpected persistent artifact, or protected action. Reviewer and diagnostic findings are evidence, not authority.
+Approval binds behavior, outcome, non-goals, material risks, and stop conditions—not exact files, ranges, or line budgets. Those remain optional implementation or concurrent-writer controls. Implement the smallest coherent solution at the canonical owner. Ask before any material expansion, unresolved material behavior/API/dependency/config/security/data decision, unapproved compatibility path, unexpected persistent artifact, or protected action. Reviewer and diagnostic findings are evidence, not authority.
 
-A later user correction supersedes conflicting terms and stale child work. When the corrected direction is nontrivial/material, re-present and review the amended proposal before mutation resumes.
+A later user correction supersedes conflicting terms and stale child work. When the corrected direction is nontrivial/material, re-present and review the amended proposal before mutation resumes. Prior authorization applies only within its scoped behavior; a correction does not authorize material expansion or protected actions by itself.
 
 ## Stage flow
 
 For nontrivial or material work:
 
-1. **Design/plan:** visible draft → asynchronous review → complete revised plan → implementation approval.
+1. **Design/plan:** visible draft → asynchronous review → complete revised plan → proceed under existing implementation authorization, or stop at the boundary defined by the approval model.
 2. **Implementation:** complete the approved behavior and focused checks; report the stage, evidence, discoveries, and remaining boundaries; continue automatically into review/fix.
 3. **Independent review/fix:** enter independent review after the implementation batch and follow `review` for initial fanout and proportionate post-fix follow-up. Apply only validated mechanically local, non-material fixes inside the approved behavior. A final `PASS` requires every accepted primary in-scope `must-fix` and `should-fix` to be fixed or explicitly user-deferred; optional/background quality exploration remains nonblocking. Report the review/fix result visibly, then continue without another approval wait unless a material decision or named milestone requires one.
 4. **Final verification:** run all relevant read-only evidence after the last edit. Put temporary files under `.scratch/`. Report `PASS`, `FAIL`, or `INCONCLUSIVE`, then stop and await user direction.
 5. **Mutating validation, commit, deploy, rollout, external mutation, or destructive action:** require separate authorization unless the exact action was already approved. Name the target, action, expected effects, credential/data boundary, and cost/time boundary.
-An extra milestone is a wait only when the decision-ready proposal names it and the user approves it. A new material choice interrupts the affected stage; individual tasks, children, edits, reviews, and safe checks are not approval checkpoints.
+Honor user-requested approval milestones. An additional agent-proposed milestone is a wait only when the decision-ready proposal names it and the user approves it. A new material choice interrupts the affected stage; individual tasks, children, edits, reviews, and safe checks are not approval checkpoints.
 
 ## Progress and continuity
 
@@ -98,9 +98,9 @@ When active:
 
 - inspect current code and docs before specifying contracts or call stacks;
 - use `tech-spec` for the architecture body of the existing decision-ready proposal;
-- keep the visible draft, asynchronous plan review, revised proposal, and single implementation approval required by this workflow;
+- keep the visible draft, asynchronous plan review, and complete revised proposal, then apply this workflow's approval model;
 - use `behavioral-proof` for relevance-based evidence rather than imposing universal test-first work;
-- include enough implementation ownership and proof sequencing in the reviewed tech spec to proceed after the single approval.
+- include enough implementation ownership and proof sequencing in the reviewed tech spec to proceed when implementation is authorized.
 
 Do not route an approved tech spec through `writing-plans` as a second approval flow. A separate later user request for a durable implementation plan remains governed by the existing `writing-plans` workflow.
 

@@ -21,7 +21,6 @@ This is the canonical map of configuration surfaces. The linked policy and promp
 | [`agents/`](agents/) | Executable prompts | Local subagent roles; same-name files override packaged builtins |
 | [`skills/`](skills/) | Executable workflows | Instructions loaded on demand |
 | [`extensions/`](extensions/) | Runtime code/config | Commands, UI helpers, todos, and guardrails |
-| [`mcp-servers/`](mcp-servers/) | Runtime code | Local MCP implementations |
 | [`themes/`](themes/) | Runtime config | TUI themes |
 | [`ATTRIBUTIONS.md`](ATTRIBUTIONS.md) | Provenance | Copied, adapted, and influential sources |
 
@@ -73,14 +72,14 @@ Optional integrations use additional commands:
 Clone the repository and point Pi at it with the supported config-directory environment variable:
 
 ```bash
-git clone --recurse-submodules https://github.com/OrestesK/pi.git ~/.config/pi
+git clone --recurse-submodules https://github.com/som1shi/pi-config.git ~/.config/pi
 export PI_CODING_AGENT_DIR="$HOME/.config/pi"
 ~/.config/pi/setup.sh
 ```
 
 Persist `PI_CODING_AGENT_DIR` in your shell startup file before opening Pi. Run `setup.sh` from a normal terminal outside Pi, then restart Pi; dependency installation replaces local package trees that an active process may have loaded. The script requires the variable to resolve to its own checkout and does not create or modify `~/.pi/agent`.
 
-The script repairs an ordinary non-recursive clone, synchronizes submodule URLs, installs the locked runtime dependencies for Pi Lens and `pi-subagents`, then runs each checked-in `profiles/*/setup.sh` hook. It never installs system tools, global npm packages, credentials, OAuth state, or optional integrations.
+The script repairs an ordinary non-recursive clone, synchronizes submodule URLs, installs locked runtime dependencies in `npm`, `packages/pi-fff`, `packages/pi-lens`, and `packages/pi-subagents`, then runs each checked-in `profiles/*/setup.sh` hook. It never installs system tools, global npm packages, credentials, OAuth state, or optional integrations.
 
 ## Untracked runtime data
 

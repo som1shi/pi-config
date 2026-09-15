@@ -816,7 +816,7 @@ const openExternalEditor = (
     });
 
     if (result.status === 0) {
-      return readFileSync(tmpFile, "utf8").replace(/\n$/, "");
+      return readFileSync(tmpFile, "utf8");
     }
 
     return null;
