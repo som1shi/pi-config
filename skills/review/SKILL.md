@@ -15,6 +15,8 @@ For every nontrivial plan review, nontrivial review request, and first implement
 
 Every reviewer receives the approved behavior, non-goals, relevant decisions, actual target/effective change, required proof and available evidence, one assigned angle/evidence target, and a stop condition. Reviewers never edit, become writers, amend the behavioral contract, or authorize scope expansion.
 
+When the change adds guards, retries, fallbacks, normalization, or behavior-changing wrappers, include them in a relevant existing reviewer's evidence target; do not add a default reviewer for this check.
+
 After a coherent review-fix group, choose the follow-up by effective risk:
 
 - **Tiny mechanical fix:** no behavior, contract, reachability, or proof meaning changed. The parent inspects the final diff and runs the narrowest check; no child reviewer is required.
@@ -54,7 +56,7 @@ Review:
 - Correctness and reachable states.
 - Meaningful behavioral proof.
 - Security, auth, privacy, data, secret, or injection behavior only when the affected path reaches that boundary.
-- Error/failure behavior only when the producer or contract makes it reachable.
+- Error/failure behavior only when the producer or contract makes it reachable. For each new defensive mechanism in scope, check the approved requirement, real producer or reached boundary, and prior error behavior. Flag unsupported additions; retain required boundary checks and existing approved handling.
 - Simplicity/YAGNI and unnecessary abstraction.
 - Existing codebase patterns.
 - Artifacts inside the reviewed change: debug logs, commented experiments, hardcoded values, stray TODOs.

@@ -11,10 +11,11 @@ Use semantic code tools when code structure, behavior, types, relationships, or 
 
 When a situational Pi Lens tool is unavailable, call `pi_lens_activate_tools` with the needed tool names. Use the activated tools on the next model turn.
 
+- **Repository-wide orientation:** use `project_report`, when available, for questions about architecture, subsystems, hubs, or dependency cycles.
 - **Ownership and shape:** `symbol_search`, then `module_report`; read exact bodies with `read_symbol` or `read_enclosing`.
 - **Types and relationships:** `lsp_navigation` for definitions, references, implementations, hover, symbols, rename previews, and call hierarchy.
 - **Structural patterns:** `ast_grep_search`; use `ast_grep_replace` for structural rewrites and dry-run before applying. Use `ast_grep_outline` for syntax-only structure and `ast_grep_dump` when the AST shape is unclear.
-- **Diagnostics:** `lsp_diagnostics` for focused language-server checks and `lens_diagnostics` for aggregate edited-file or project findings.
+- **Diagnostics:** `lsp_diagnostics` for focused language-server checks and `lens_diagnostics` for aggregate edited-file or project findings. Cached diagnostics do not prove unobserved files are clean; select an active check when the claim needs fresh coverage.
 
 Use every evidence group that answers a material question, but do not call groups mechanically. Gather the minimum evidence that can settle ownership, implementation, or correctness.
 

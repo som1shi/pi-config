@@ -58,6 +58,8 @@ Inspect the actual diff or changed files for engineering quality. Verify:
 - Existing project patterns are followed.
 - No debugging artifacts or speculative abstractions remain.
 
+When your assigned angle covers new guards, retries, fallbacks, normalization, or behavior-changing wrappers, check each against the approved requirement, real producer or reached boundary, and prior error behavior. Report unsupported mechanisms with evidence; retain those required by a real boundary or contract. Do not recommend removing existing approved handling merely because it is defensive.
+
 Do not relitigate approved scope in quality mode unless implementation creates concrete risk.
 
 ### Structural maintainability checks

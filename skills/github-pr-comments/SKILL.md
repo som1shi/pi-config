@@ -14,8 +14,8 @@ This skill is about **turning reviewed findings into useful GitHub comments**. I
 - Use `gh` only for GitHub operations. Never use GitHub MCP.
 - GitHub mutation is allowed only after the user explicitly asks for the exact action, e.g. "post", "submit the review", or "add these inline comments".
 - Recheck the PR head immediately before quoting or posting comments.
-- Verify every finding from source, diff, checks, docs, prior comments, and live checks before drafting it as a postable comment.
-- Prefer live verification over static reading whenever a safe, bounded command can prove or disprove the issue. "Read the file" is enough only for purely structural claims or when no proportional live check exists.
+- Verify every finding using relevant source, diff, checks, docs, prior comments, and the claim-bound proof selected through `behavioral-proof` before drafting it as a postable comment.
+- Use evidence that reaches the claimed boundary. Source inspection can establish purely structural claims; runtime claims need evidence of the claimed behavior. Run a live probe only when it is part of the selected proof and is safe, authorized, and proportionate. When a material live boundary remains unchecked, name the strongest available non-live evidence and the limit on the claim.
 - List any assumptions the comment depends on. Do not present assumptions as facts.
 - If a claim depends on an assumption, pose it as a question: "Assuming this is meant to do X, should it instead do Y?" If that assumption is likely wrong or unverifiable, do not post it as a finding.
 - Do not post speculative "what if" nits. If the issue depends on an unlikely future collision or invented edge case, drop it unless the user explicitly asks for exhaustive hypotheticals.
@@ -92,7 +92,7 @@ Before drafting comments:
 Post only findings that pass all gates:
 
 - **Evidence:** Direct source/diff/test/docs/CI evidence exists.
-- **Live verification:** A safe test/build/typecheck/import/runtime probe was run when it could directly verify the claim. If no live check was practical, the comment says why.
+- **Claim-bound proof:** The selected evidence supports the claim at its stated boundary. Any material unverified runtime behavior is named; unsupported claims are narrowed or downgraded.
 - **Impact:** The comment explains why it matters.
 - **Actionability:** The author can fix it, answer a focused question, or intentionally decline it.
 - **Scope:** The issue belongs to this PR, not unrelated old code.
@@ -108,7 +108,7 @@ Drop or downgrade:
 - huge refactors not required for the current PR,
 - generic architecture essays that can be split into specific comments,
 - uncertain claims that cannot be verified; ask a question or mark as not 100% instead,
-- claims that could be cheaply live-tested but were only verified by reading files,
+- claims whose selected proof was skipped or replaced with weaker evidence without justification,
 - assumption-led comments where the assumption is likely wrong, unimportant, or not worth asking about.
 
 ## General vs Inline Placement
@@ -147,7 +147,7 @@ Assumptions:
 - <only include if the comment depends on an assumption; phrase it as "Assuming X is intended...">
 
 Verification done:
-- <live command/check result first when available; otherwise what was inspected and why a live check was not practical>
+- <selected evidence and what it proves; name any material unverified boundary>
 
 Proposed fix:
 - <specific direction>
@@ -160,13 +160,11 @@ Proposed fix/question:
 - Assuming <specific assumption>, should we <recommended direction>? If that assumption is wrong, what should this path optimize for instead?
 ```
 
-For tiny comments, it is okay to collapse bullets into short paragraphs, but do not omit evidence or verification when the user asked for verified comments. If a live test/build/import/runtime probe is possible, include that result instead of only saying files were read.
+For tiny comments, it is okay to collapse bullets into short paragraphs, but do not omit evidence or verification when the user asked for verified comments. Report the selected proof and its limits; do not add a live probe merely because one is possible.
 
-## Live Verification Standard
+## Claim-bound Verification
 
-Before posting a comment, ask: "What command or runtime probe would prove this issue to the author?" Run it when it is safe, bounded, and proportional.
-
-Prefer:
+Use `behavioral-proof` to select the smallest evidence that can establish or disprove the actual claim. These are possible proof methods, not a command-execution checklist:
 
 - packaging/import claims: build or inspect the wheel/sdist, or run an installed-package import probe;
 - type/schema claims: run the relevant typecheck, schema generation, OpenAPI generation, or a small serialization/validation probe;
@@ -175,9 +173,7 @@ Prefer:
 - dead-code claims: combine source search with an import/test run when removal would otherwise be risky;
 - test-quality claims: run the relevant test and state what it does and does not prove.
 
-Do not run unbounded, destructive, expensive, secret-touching, production-mutating, or broad environment-dependent commands just to strengthen a comment. If the live check is unsafe or disproportionate, say that and keep the comment as a question or lower-confidence note.
-
-A comment is not ready to post when a cheap live check exists but was skipped.
+Do not run unbounded, destructive, expensive, secret-touching, production-mutating, or broad environment-dependent commands just to strengthen a comment. All probes remain subject to active authorization rules. If the selected proof cannot run, report the available evidence and unverified boundary, then narrow, downgrade, or withhold the claim when that gap matters. An optional unselected live check is not a posting gate, and non-live evidence must not be presented as proof of untested runtime behavior.
 
 ## Language Style
 
@@ -224,7 +220,7 @@ In comment text, use lightweight severity only when useful:
 1. List candidate findings, sorted with simplification/design/architecture/structure/source-of-truth/deduplication/typing-boundary issues first.
 2. For each candidate, write a one-line falsifiable claim.
 3. Verify it from source/diff/checks.
-4. Identify the strongest safe live verification for the claim. Run it when possible; if not possible, record why and downgrade to a question/not-100-percent item when appropriate.
+4. Collect the selected claim-bound proof. If it is unavailable, record why, name the strongest available evidence and unverified boundary, and narrow or downgrade the finding when the gap matters.
 5. List every assumption the claim depends on. If the finding only works when an assumption is true, phrase the comment as a question; if the assumption is weak or not worth asking, drop it.
 6. Mark it:
    - `post-inline`,
@@ -353,7 +349,7 @@ Before claiming the review comments are ready or posted:
 
 - PR head was checked after the latest relevant change, and any local file reads were used only after `git rev-parse HEAD` equaled the fetched PR `headRefOid`; otherwise files were read by `git show <HEAD_SHA>:...` or the GitHub contents API.
 - Every comment is verified or explicitly marked as not 100% / question.
-- Every comment used the strongest safe live verification available; if no live check was practical, the comment says why.
+- Every comment used its selected claim-bound proof; any material unverified boundary is named and the claim does not exceed the evidence.
 - Every assumption is listed; assumption-dependent comments are phrased as questions, not facts.
 - Speculative findings were dropped.
 - Simplification/design/architecture/structure/deduplication/typing-boundary comments were prioritized; ordinary minor nits were either user-approved or omitted.

@@ -43,6 +43,20 @@ Mutating operations require the user to explicitly ask for that exact action. On
 - creating an issue
 - posting an issue comment
 
+## Workflow Routing
+
+Use the existing owner for the requested work:
+
+- **Issue drafting, triage, or revision:** `github-issues` owns evidence, scope, duplicates, and completion criteria. Routine issue lookup stays here.
+- **PR preparation or review:** `review` owns review method and reviewer selection; `behavioral-proof` selects evidence. Reuse review and checks still valid for the current change rather than starting another review for a small description or handoff draft.
+- **Outgoing PR review comments:** `github-pr-comments` turns validated findings into proposed comments and governs their authorized posting.
+- **PR feedback or CI fixes:** `iterate-pr` owns an authorized fix cycle. Evaluate feedback against current code, recheck the original concern after a fix, and refresh affected evidence. Draft useful replies without mechanically replying to every comment.
+- **Author-to-human review request:** `pr-review-handoff` drafts the requested message; it does not dispatch agents or request reviewers on GitHub.
+
+Keep PR checks, static proof, and representative live evidence distinct. Suggest a live check only when it would materially strengthen the selected proof and is within the active authorization boundary. Name material unverified behavior instead of implying that passing checks cover it.
+
+These routes do not authorize posts, replies, thread resolution, issue attachment, reviewer assignment, or any other GitHub mutation. Show proposed external changes and follow the exact-action approval rules above.
+
 ## PR Description Format
 
 Use this format when drafting PR text or when the user explicitly asks to update a PR description/body:

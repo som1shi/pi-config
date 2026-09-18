@@ -9,13 +9,22 @@ Parse Pi session JSONL files into readable output. `PI_CODING_AGENT_SESSION_DIR`
 
 ## Step 1: Find the Session
 
+Resolve `scripts/read_session.py` from this skill's directory and use its absolute path as `script_path`. List the project directories when needed, choose the intended project, then select one session file. Replace the example paths with verified absolute paths before running commands; reuse these variables in the same shell.
+
 ```bash
+script_path="/absolute/path/to/this-skill/scripts/read_session.py"
+
 if [[ -n "${PI_CODING_AGENT_SESSION_DIR:-}" ]]; then
-    ls -t "$PI_CODING_AGENT_SESSION_DIR"/*.jsonl | head -10
+    session_dir="$PI_CODING_AGENT_SESSION_DIR"
 else
     session_root="${PI_CODING_AGENT_DIR:-$HOME/.pi/agent}/sessions"
-    ls -t "$session_root"/*<project>*/*.jsonl | head -10
+    find "$session_root" -mindepth 1 -maxdepth 1 -type d -print | sort
+    session_dir="/absolute/path/to/selected-project-directory"
 fi
+# Display the most recently modified sessions; select a path explicitly below.
+# shellcheck disable=SC2012
+ls -t "$session_dir"/*.jsonl | head -10
+session_path="/absolute/path/to/selected-session.jsonl"
 ```
 
 ## Step 2: Start with Table of Contents
@@ -23,7 +32,7 @@ fi
 Always start with `toc` to get a numbered map of the session:
 
 ```bash
-uv run {baseDir}/scripts/read_session.py <path> --mode toc
+uv run "$script_path" "$session_path" --mode toc
 ```
 
 This prints a compact numbered list of every user exchange with timestamps and tools used.
@@ -34,13 +43,13 @@ Default mode — shows only user messages and assistant text responses. Tool cal
 
 ```bash
 # Full conversation (default mode)
-uv run {baseDir}/scripts/read_session.py <path>
+uv run "$script_path" "$session_path"
 
 # Specific range
-uv run {baseDir}/scripts/read_session.py <path> --offset 5 --limit 3
+uv run "$script_path" "$session_path" --offset 5 --limit 3
 
 # Search for specific topic
-uv run {baseDir}/scripts/read_session.py <path> --search "error"
+uv run "$script_path" "$session_path" --search "error"
 ```
 
 ## Step 4: Drill Into a Turn
@@ -48,7 +57,7 @@ uv run {baseDir}/scripts/read_session.py <path> --search "error"
 See everything about a specific exchange — thinking, tool calls, tool results, costs:
 
 ```bash
-uv run {baseDir}/scripts/read_session.py <path> --mode turn --turn 7
+uv run "$script_path" "$session_path" --mode turn --turn 7
 ```
 
 ## Mode Reference
@@ -88,7 +97,8 @@ Subagent session files can be read with the same script:
 
 ```bash
 # From --mode subagents output, grab the JSONL path
-uv run {baseDir}/scripts/read_session.py <subagent-jsonl-path> --mode toc
+subagent_session_path="/absolute/path/to/selected-subagent-session.jsonl"
+uv run "$script_path" "$subagent_session_path" --mode toc
 ```
 
 ## Session Format Reference

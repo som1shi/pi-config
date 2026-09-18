@@ -39,7 +39,9 @@ If not, use `brainstorming` or `scout` first.
 
 ## Plan Format
 
-Avoid tables in generated plan Markdown. Every implementation plan should include:
+Avoid tables in generated plan Markdown. Use only sections and per-task details needed for the decision or execution. Omit empty or irrelevant headings rather than filling a template. Keep the observable outcome/delta, non-goals, likely owners, proof, approval boundaries, and stop conditions explicit wherever material.
+
+The following is a menu of useful sections, not a required document shape:
 
 ```markdown
 # <Feature> Implementation Plan
@@ -109,8 +111,8 @@ Make tasks small enough for the parent or an exceptional concurrent worker to co
 
 - one behavior or one coherent refactor per task,
 - one coherent proof target per changed behavior where practical,
-- likely owner locations and exact commands,
-- explicit stop conditions.
+- likely owner locations and exact commands when they guide execution,
+- explicit material stop conditions.
 
 If a task requires product judgment, split it or return to `brainstorming`.
 

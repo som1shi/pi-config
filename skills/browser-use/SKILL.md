@@ -22,6 +22,12 @@ BU_NAME='<unique-task>' BU_CDP_URL='http://<task-owned-host>:<port>' browser-use
 BU_NAME='<unique-task>' BU_CDP_URL='http://<task-owned-host>:<port>' browser-use --doctor
 ```
 
+## Data and external effects
+
+For cookie or storage inspection, prefer names and metadata. Retrieve only values the task needs; do not repeat secret values in chat or persist them unless the task requires that data and the applicable authorization permits it.
+
+Submissions, uploads, remote-site changes, and cookie/profile changes are external effects governed by the existing approval rules. Browser access or permission to inspect a page does not authorize those actions.
+
 ## Workflow
 
 The CLI executes Python with browser helpers pre-imported. Its daemon preserves the attached tab between calls.

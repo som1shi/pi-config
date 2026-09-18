@@ -104,6 +104,7 @@ Before yielding, follow the useful-work scan in `delegation`. Pending children a
 - Before source/config mutation, establish task intent proportional to risk. For trivial unambiguous work, the direct request plus a concise objective and non-goals is sufficient. For nontrivial/material work or concurrent writers, state the root, observable contract, likely implementation owners, verification, behavioral approval boundary, and stop conditions in chat.
 - Implement the smallest coherent solution. Investigate freely, but do not silently add unrelated refactoring, cleanup, abstractions, compatibility work, diagnostic-driven edits, dependencies, or persistent files. Explain and ask before material expansion of behavior or approved boundaries
 - When changing shared behavior, state, or representations, place it at its canonical owner; retain separate paths only for demonstrated runtime or contract boundaries.
+- After tracing the real runtime path, prefer the first option that meets the contract: no code change → existing canonical code → standard-library/platform support → a suitable installed dependency → minimum coherent new code. This does not authorize installing dependencies.
 - Before nontrivial planning or implementation, briefly establish:
   - the smallest coherent model is sufficient;
   - no generation framework or scaffolding is being added without a current consumer;
@@ -131,6 +132,7 @@ Before yielding, follow the useful-work scan in `delegation`. Pending children a
 - Once an invariant is established by construction, typing, or one canonical boundary, trust it downstream. Validate each fact once at its owner.
 - For trusted internal values, do not add repeated required-field checks, type checks, coercions, normalization, fallback values, compatibility branches, or custom error wrapping for states the producer cannot create.
 - Access required trusted fields directly. Do not use `.get()` defaults, silent filtering, skipping, replacement, or repair to hide invariant violations or data loss.
+- Preserve original errors unless the approved contract requires different error behavior. Retain required handling at demonstrated trust, external-service, and lifecycle boundaries.
 - Every defensive branch must name a concrete reachable producer or boundary condition. If the state cannot be produced by the current runtime path, omit the branch.
 - Retain checks for real boundaries and invariants: untrusted input, external service responses, protocol decoding, version transitions, hard platform limits, configuration and secrets, persistence concurrency, retries, idempotency, and lifecycle state.
 - Use casts only at genuinely untyped library or external boundaries. Prefer accurate signatures and typed local values for owned data.

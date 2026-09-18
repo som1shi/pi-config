@@ -68,6 +68,12 @@ Once root cause is supported:
 
 No “while here” refactors unless the fix requires them.
 
+## Wait for observable conditions
+
+For asynchronous or flaky application behavior, name the lifecycle condition that proves readiness or completion. Subscribe or poll for that condition under a bounded deadline, within the task's authorization and service limits. On timeout, capture the last observed state and treat it as evidence; do not blindly increase the delay. Use a fixed sleep only when elapsed time is itself the behavior under test.
+
+Use `writing-tests` for persistent test helpers or fixtures. This does not change healthy Pi-child waiting or subagent deadline rules; those remain with `delegation`.
+
 ## When Fix Progress Stalls
 
 Continue only while each attempted fix tests a supported root-cause hypothesis and produces material new evidence or progress. Stop when failures repeat, progress stalls, each change only reveals unrelated symptoms, evidence invalidates the architecture or plan, or a material/protected boundary is reached.
